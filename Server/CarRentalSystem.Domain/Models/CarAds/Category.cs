@@ -7,7 +7,7 @@
 
     public class Category
     {
-        public Category(string name, string description)
+        internal Category(string name, string description)
         {
             this.Validate(name, description);
 

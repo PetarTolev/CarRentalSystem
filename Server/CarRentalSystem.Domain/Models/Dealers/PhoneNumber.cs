@@ -6,7 +6,7 @@
 
     public class PhoneNumber : ValueObject
     {
-        public PhoneNumber(string number)
+        internal PhoneNumber(string number)
         {
             this.Validate(number);
 

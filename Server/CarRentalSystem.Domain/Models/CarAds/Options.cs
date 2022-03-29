@@ -2,11 +2,12 @@
 {
     using CarRentalSystem.Domain.Common;
     using CarRentalSystem.Domain.Exceptions;
+    using System;
     using static ModelConstants.Options;
 
     public class Options
     {
-        public Options(
+        internal Options(
             bool hasClimateControl,
             int numberOfSeats,
             TransmitionType transmitionType)

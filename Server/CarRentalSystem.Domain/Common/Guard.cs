@@ -1,8 +1,8 @@
 ﻿namespace CarRentalSystem.Domain.Common
 {
-    using System;
     using Exceptions;
-    using Models;
+    using System;
+    using static Models.ModelConstants.Common;
 
     public static class Guard
     {
@@ -55,7 +55,7 @@
         public static void ForValidUrl<TException>(string url, string name = "Value")
             where TException : BaseDomainException, new()
         {
-            if (url.Length <= ModelConstants.Common.MaxUrlLength &&
+            if (url.Length <= MaxUrlLength &&
                 Uri.IsWellFormedUriString(url, UriKind.Absolute))
             {
                 return;

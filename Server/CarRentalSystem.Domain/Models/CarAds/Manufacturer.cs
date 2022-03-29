@@ -6,7 +6,7 @@
 
     public class Manufacturer : Entity<int>
     {
-        public Manufacturer(string name)
+        internal Manufacturer(string name)
         {
             this.Validate(name);
 
@@ -19,7 +19,7 @@
             => Guard.ForStringLength<InvalidCarAdException>(
                 name,
                 MinNameLength,
-                MaxUrlLength,
+                MaxNameLength,
                 nameof(this.Name));
     }
 }

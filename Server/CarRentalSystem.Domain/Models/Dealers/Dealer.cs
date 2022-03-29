@@ -5,7 +5,7 @@
     using CarRentalSystem.Domain.Models.CarAds;
     using System.Collections.Generic;
     using System.Linq;
-    using static ModelConstants.CarAd;
+    using static ModelConstants.Common;
 
     public class Dealer : Entity<int>, IAggregateRoot
     {
@@ -34,8 +34,8 @@
         private void Validate(string name)
             => Guard.ForStringLength<InvalidDealerException>(
                 name,
-                MinModelLength,
-                MaxModelLength,
+                MinNameLength,
+                MaxNameLength,
                 nameof(this.Name));
     }
 }
