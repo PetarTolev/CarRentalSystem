@@ -27,6 +27,22 @@
             this.IsAvailable = IsAvailable;
         }
 
+        private CarAd(
+            string model,
+            string imageUrl,
+            decimal pricePerDay,
+            bool IsAvailable)
+        {
+            this.Model = model;
+            this.ImageUrl = imageUrl;
+            this.PricePerDay = pricePerDay;
+            this.IsAvailable = IsAvailable;
+
+            this.Manufacturer = default!;
+            this.Category = default!;
+            this.Options = default!;
+        }
+
         public Manufacturer Manufacturer { get; }
 
         public string Model { get; }
@@ -52,7 +68,7 @@
                 nameof(this.Model));
 
             Guard.ForValidUrl<InvalidCarAdException>(
-                imageUrl, 
+                imageUrl,
                 nameof(this.ImageUrl));
 
             Guard.AgainstOutOfRange<InvalidCarAdException>(

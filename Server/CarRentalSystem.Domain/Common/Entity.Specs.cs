@@ -32,7 +32,7 @@
         public void EntityAndNullShouldNotBeEqual()
         {
             var first = new Manufacturer("First");
-            var second = (Manufacturer?)null!;
+            Manufacturer second = default!;
 
             var result = first == second;
 

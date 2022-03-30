@@ -5,7 +5,7 @@
     using static ModelConstants.Category;
     using static ModelConstants.Common;
 
-    public class Category
+    public class Category : Entity<int>
     {
         internal Category(string name, string description)
         {

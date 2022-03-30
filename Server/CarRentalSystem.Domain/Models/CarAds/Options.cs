@@ -5,7 +5,7 @@
     using System;
     using static ModelConstants.Options;
 
-    public class Options
+    public class Options : ValueObject
     {
         internal Options(
             bool hasClimateControl,
@@ -17,6 +17,16 @@
             this.HasClimateControl = hasClimateControl;
             this.NumberOfSeats = numberOfSeats;
             this.TransmitionType = transmitionType;
+        }
+
+        private Options(
+            bool hasClimateControl,
+            int numberOfSeats)
+        {
+            this.HasClimateControl = hasClimateControl;
+            this.NumberOfSeats = numberOfSeats;
+
+            this.TransmitionType = default!;
         }
 
         public bool HasClimateControl { get; }
