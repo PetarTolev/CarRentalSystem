@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Domain.Exceptions
 {
-    internal class InvalidDealerException : BaseDomainException
+    public class InvalidDealerException : BaseDomainException
     {
         public InvalidDealerException()
         {

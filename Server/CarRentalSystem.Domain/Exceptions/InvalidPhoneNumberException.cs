@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Domain.Exceptions
 {
-    internal class InvalidPhoneNumberException : BaseDomainException
+    public class InvalidPhoneNumberException : BaseDomainException
     {
         public InvalidPhoneNumberException()
         {
