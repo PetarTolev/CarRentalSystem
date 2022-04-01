@@ -1,19 +1,23 @@
 ﻿namespace CarRentalSystem.Web.Features
 {
-    using CarRentalSystem.Domain.Models.CarAds;
-    using CarRentalSystem.Domain.Models.Dealers;
-    using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
+    using Application.Contracts;
+    using Domain.Models.CarAds;
+    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("[controller]")]
-    internal class CarAdsController : ControllerBase
+    public class CarAdsController : ControllerBase
     {
-        private static readonly Dealer Dealer = new Dealer("Dealer", "+123123123");
+        private readonly IRepository<CarAd> carAds;
 
-        public IEnumerable<CarAd> Get => Dealer
-            .CarAds
+        public CarAdsController(IRepository<CarAd> carAds)
+            => this.carAds = carAds;
+
+        [HttpGet]
+        public IEnumerable<CarAd> Get() => this.carAds
+            .All()
             .Where(c => c.IsAvailable);
     }
 }
