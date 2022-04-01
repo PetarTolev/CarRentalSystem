@@ -11,7 +11,7 @@
     {
         private readonly HashSet<CarAd> carAds;
 
-        public Dealer(string phoneNumber, string name)
+        internal Dealer(string phoneNumber, string name)
         {
             this.Validate(name);
 
