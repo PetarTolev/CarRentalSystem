@@ -8,12 +8,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.23" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CarRentalSystem.Application\CarRentalSystem.Application.csproj" />
+		<ProjectReference Include="..\CarRentalSystem.Application\CarRentalSystem.Application.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 {
     using Application.Contracts;
     using CarRentalSystem.Application;
+    using CarRentalSystem.Application.Features.Identity;
     using CarRentalSystem.Infrastructure.Identity;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,7 @@
             IConfiguration configuration)
             => services
                 .AddDatabase(configuration)
+                .AddRepositories()
                 .AddIdentity(configuration);
 
         private static IServiceCollection AddDatabase(
@@ -32,6 +34,16 @@
                         b => b.MigrationsAssembly(typeof(CarRentalDbContext).Assembly.FullName)))
                 .AddTransient<IInitializer, CarRentalDbInitializer>()
                 .AddTransient(typeof(IRepository<>), typeof(DataRepository<>));
+
+        internal static IServiceCollection AddRepositories(
+            this IServiceCollection services)
+            => services
+                .Scan(scan => scan
+                    .FromCallingAssembly()
+                    .AddClasses(classes => classes
+                        .AssignableTo(typeof(IRepository<>)))
+                    .AsMatchingInterface()
+                    .WithTransientLifetime());
 
         private static IServiceCollection AddIdentity(
             this IServiceCollection services,
