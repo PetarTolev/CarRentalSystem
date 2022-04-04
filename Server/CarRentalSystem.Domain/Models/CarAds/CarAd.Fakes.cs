@@ -1,7 +1,10 @@
 ﻿namespace CarRentalSystem.Domain.Models.CarAds
 {
+    using Bogus;
     using FakeItEasy;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class CarAdFakes
     {
@@ -9,17 +12,33 @@
         {
             public Priority Priority => Priority.Default;
 
-            public bool CanCreate(Type type) => true;
+            public bool CanCreate(Type type) => type == typeof(CarAd);
 
-            public object? Create(Type type)
-                => new CarAd(
-                    new Manufacturer("Valid Manufacturer"),
-                    "Valid model",
-                    new Category("Valid name", "Valid description text"),
-                    "https://valid.test",
-                    10,
-                    new Options(true, 4, TransmitionType.Automatic),
-                    true);
+            public object? Create(Type type) => Data.GetCarAd();
+        }
+
+        public static class Data
+        {
+            public static IEnumerable<CarAd> GetCarAds(int count = 10)
+                => Enumerable
+                    .Range(1, count)
+                    .Select(i => GetCarAd(i))
+                    .Concat(Enumerable
+                        .Range(count + 1, count + 2)
+                        .Select(i => GetCarAd(i, false)))
+                    .ToList();
+
+            public static CarAd GetCarAd(int id = 1, bool isAvailable = true)
+                => new Faker<CarAd>()
+                    .CustomInstantiator(f => new CarAd(
+                        new Manufacturer($"Manufacturer{id}"),
+                        f.Lorem.Letter(10),
+                        A.Dummy<Category>(),
+                        f.Image.PicsumUrl(),
+                        f.Random.Number(100, 200),
+                        A.Dummy<Options>(),
+                        isAvailable))
+                    .Generate();
         }
     }
 }

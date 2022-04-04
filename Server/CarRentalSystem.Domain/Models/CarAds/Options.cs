@@ -10,7 +10,7 @@
         internal Options(
             bool hasClimateControl,
             int numberOfSeats,
-            TransmitionType transmitionType)
+            TransmissionType transmitionType)
         {
             this.Validate(numberOfSeats);
 
@@ -33,7 +33,7 @@
 
         public int NumberOfSeats { get; }
 
-        public TransmitionType TransmitionType { get; }
+        public TransmissionType TransmitionType { get; }
 
         private void Validate(int numberOfSeats)
             => Guard.AgainstOutOfRange<InvalidCarAdException>(

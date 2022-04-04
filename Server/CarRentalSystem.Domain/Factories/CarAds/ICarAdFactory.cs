@@ -21,7 +21,7 @@
         ICarAdFactory WithOptions(
             bool hasClimateControl,
             int numberOfSeats,
-            TransmitionType transmitionType);
+            TransmissionType transmitionType);
 
         ICarAdFactory WithOptions(Options options);
     }

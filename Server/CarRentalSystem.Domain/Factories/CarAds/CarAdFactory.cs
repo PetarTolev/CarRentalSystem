@@ -54,7 +54,7 @@
             return this;
         }
 
-        public ICarAdFactory WithOptions(bool hasClimateControl, int numberOfSeats, TransmitionType transmitionType)
+        public ICarAdFactory WithOptions(bool hasClimateControl, int numberOfSeats, TransmissionType transmitionType)
             => this.WithOptions(new Options(hasClimateControl, numberOfSeats, transmitionType));
 
         public ICarAdFactory WithOptions(Options options)

@@ -27,7 +27,7 @@
                 new Category("Valid name", "Valid description text"),
                 "https://valid.test",
                 10,
-                new Options(true, 4, TransmitionType.Automatic),
+                new Options(true, 4, TransmissionType.Automatic),
                 true);
 
             act.Should().Throw<InvalidCarAdException>();
@@ -42,7 +42,7 @@
                 new Category("Valid name", "Valid description text"),
                 "",
                 10,
-                new Options(true, 4, TransmitionType.Automatic),
+                new Options(true, 4, TransmissionType.Automatic),
                 true);
 
             act.Should().Throw<InvalidCarAdException>();
@@ -57,7 +57,7 @@
                 new Category("Valid name", "Valid description text"),
                 "https://valid.test",
                 -1,
-                new Options(true, 4, TransmitionType.Automatic),
+                new Options(true, 4, TransmissionType.Automatic),
                 true);
 
             act.Should().Throw<InvalidCarAdException>();

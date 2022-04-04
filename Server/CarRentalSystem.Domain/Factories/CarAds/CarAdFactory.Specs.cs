@@ -15,7 +15,7 @@
 
             Action act = () => factory
                 .WithCategory("TestCategory", "TestDescription")
-                .WithOptions(true, 2, TransmitionType.Automatic)
+                .WithOptions(true, 2, TransmissionType.Automatic)
                 .Build();
 
             act.Should().Throw<InvalidCarAdException>();
@@ -28,7 +28,7 @@
 
             Action act = () => factory
                 .WithManufacturer("TestManufacturer")
-                .WithOptions(true, 2, TransmitionType.Automatic)
+                .WithOptions(true, 2, TransmissionType.Automatic)
                 .Build();
 
             act.Should().Throw<InvalidCarAdException>();
@@ -58,7 +58,7 @@
                 .WithImageUrl("http://test.image.url")
                 .WithModel("TestModel")
                 .WithPricePerDay(10)
-                .WithOptions(true, 2, TransmitionType.Automatic)
+                .WithOptions(true, 2, TransmissionType.Automatic)
                 .Build();
 
             carAd.Should().NotBeNull();

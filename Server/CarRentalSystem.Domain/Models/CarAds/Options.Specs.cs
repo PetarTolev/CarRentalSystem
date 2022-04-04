@@ -10,7 +10,7 @@
         [Fact]
         public void InvalidNumberOfSeatsShouldThrowException()
         {
-            Action options = () => new Options(true, 1, TransmitionType.Automatic);
+            Action options = () => new Options(true, 1, TransmissionType.Automatic);
 
             options.Should().Throw<InvalidCarAdException>();
         }

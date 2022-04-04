@@ -11,7 +11,6 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Persistence;
-    using Persistence.Repositories;
     using System.Text;
 
     public static class InfrastructureConfiguration
@@ -32,8 +31,7 @@
                     .UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(CarRentalDbContext).Assembly.FullName)))
-                .AddTransient<IInitializer, CarRentalDbInitializer>()
-                .AddTransient(typeof(IRepository<>), typeof(DataRepository<>));
+                .AddTransient<IInitializer, CarRentalDbInitializer>();
 
         internal static IServiceCollection AddRepositories(
             this IServiceCollection services)
@@ -86,6 +84,7 @@
                 });
 
             services.AddTransient<IIdentity, IdentityService>();
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGeneratorService>();
 
             return services;
         }
