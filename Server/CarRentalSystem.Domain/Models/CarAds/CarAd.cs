@@ -2,11 +2,16 @@
 {
     using CarRentalSystem.Domain.Common;
     using CarRentalSystem.Domain.Exceptions;
+    using System.Collections.Generic;
+    using System.Linq;
     using static ModelConstants.CarAd;
     using static ModelConstants.Common;
 
     public class CarAd : Entity<int>, IAggregateRoot
     {
+        private static readonly IEnumerable<Category> AllowedCategories
+            = new CategoryData().GetData().Cast<Category>();
+
         internal CarAd(
             Manufacturer manufacturer,
             string model,
@@ -17,6 +22,7 @@
             bool IsAvailable)
         {
             this.Validate(model, imageUrl, pricePerDay);
+            this.ValidateCategory(category);
 
             this.Manufacturer = manufacturer;
             this.Model = model;
@@ -76,6 +82,21 @@
                 Zero,
                 decimal.MaxValue,
                 nameof(this.PricePerDay));
+        }
+    
+        private void ValidateCategory(Category category)
+        {
+            var categoryName = category.Name;
+
+            if (AllowedCategories.Any(c => c.Name == categoryName))
+            {
+                return;
+            }
+
+            var allowedCategoryNames = string.Join(", ", AllowedCategories.Select(c => $"'{c.Name}'"));
+
+            throw new InvalidCarAdException(
+                $"'{categoryName}' is not a valid category. Allowed values are: {allowedCategoryNames}");
         }
     }
 }

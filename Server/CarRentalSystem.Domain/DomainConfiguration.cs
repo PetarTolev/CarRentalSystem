@@ -1,6 +1,8 @@
 ﻿namespace CarRentalSystem.Domain
 {
+    using CarRentalSystem.Domain.Common;
     using CarRentalSystem.Domain.Factories;
+    using CarRentalSystem.Domain.Models.CarAds;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class DomainConfiguration
@@ -13,6 +15,7 @@
                     .AddClasses(classes => classes
                         .AssignableTo(typeof(IFactory<>)))
                     .AsMatchingInterface()
-                    .WithTransientLifetime());
+                    .WithTransientLifetime())
+                .AddTransient<IInitialData, CategoryData>();
     }
 }

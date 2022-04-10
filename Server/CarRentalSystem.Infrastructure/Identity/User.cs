@@ -1,10 +1,11 @@
 ﻿namespace CarRentalSystem.Infrastructure.Identity
 {
+    using CarRentalSystem.Application.Features.Identity;
     using Domain.Exceptions;
     using Domain.Models.Dealers;
     using Microsoft.AspNetCore.Identity;
 
-    public class User : IdentityUser
+    public class User : IdentityUser, IUser
     {
         internal User(string email)
             : base(email)
