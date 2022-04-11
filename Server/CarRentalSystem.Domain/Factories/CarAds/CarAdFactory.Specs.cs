@@ -54,7 +54,7 @@
 
             var carAd = factory
                 .WithManufacturer("TestManufacturer")
-                .WithCategory("TestCategory", "TestCategoryDescription")
+                .WithCategory(CategoryFakes.ValidCategoryName, "TestCategoryDescription")
                 .WithImageUrl("http://test.image.url")
                 .WithModel("TestModel")
                 .WithPricePerDay(10)

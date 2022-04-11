@@ -11,6 +11,16 @@
 
     public class CarAdsControllerSpecs
     {
+
+        [Fact]
+        public void GetShouldHaveCorrectAttributes()
+            => MyController<CarAdsController>
+                .Calling(c => c.Get(With.Default<SearchCarAdsQuery>()))
+                
+                .ShouldHave()
+                .ActionAttributes(attr => attr
+                    .RestrictingForHttpMethod(HttpMethod.Get));
+
         [Theory]
         [InlineData(2)]
         public void GetShouldReturnAllCarAdsWithoutAQuery(int totalCarAds)

@@ -5,6 +5,8 @@
 
     public class CategoryFakes
     {
+        public const string ValidCategoryName = "Economy";
+
         public class CategoryDummyFactory : IDummyFactory
         {
             public Priority Priority => Priority.Default;
@@ -12,7 +14,7 @@
             public bool CanCreate(Type type) => type == typeof(Category);
 
             public object? Create(Type type)
-                => new Category("Valid category", "Valid description text");
+                => new Category(ValidCategoryName, "Valid description text");
         }
     }
 }
