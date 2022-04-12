@@ -1,7 +1,7 @@
 ﻿namespace CarRentalSystem.Startup.Specs
 {
+    using CarRentalSystem.Application.Features.Identity.Commands.CreateUser;
     using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
-    using CarRentalSystem.Application.Features.Identity.Commands.RegisterUser;
     using CarRentalSystem.Infrastructure.Identity;
     using CarRentalSystem.Web.Features;
     using FluentAssertions;
@@ -14,7 +14,7 @@
         public void RegisterShouldHaveCorrectAttributes()
             => MyController<IdentityController>
                 .Calling(c => c
-                    .Register(new CreateUserCommand(With.No<string>(), With.No<string>(), With.No<string>(), With.No<string>())))
+                    .Register(CreateUserCommandFakes.Data.GetCommand()))
 
                 .ShouldHave()
                 .ActionAttributes(attr => attr

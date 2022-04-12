@@ -4,6 +4,7 @@ namespace CarRentalSystem.Startup
     using CarRentalSystem.Domain;
     using CarRentalSystem.Infrastructure;
     using CarRentalSystem.Web;
+    using CarRentalSystem.Web.Middleware;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -32,6 +33,7 @@ namespace CarRentalSystem.Startup
             }
 
             app
+                .UseValidationExceptionHandler()
                 .UseHttpsRedirection()
                 .UseRouting()
                 .UseAuthentication()
