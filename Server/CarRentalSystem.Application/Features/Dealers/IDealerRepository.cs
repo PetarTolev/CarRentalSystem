@@ -7,6 +7,6 @@
 
     public interface IDealerRepository : IRepository<Dealer>
     {
-        Task Save(Dealer dealer, CancellationToken cancellationToken = default);
+        Task<Dealer> FindByUser(string userId, CancellationToken cancellationToken);
     }
 }

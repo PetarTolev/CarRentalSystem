@@ -15,7 +15,7 @@
         [Fact]
         public void GetShouldHaveCorrectAttributes()
             => MyController<CarAdsController>
-                .Calling(c => c.Get(With.Default<SearchCarAdsQuery>()))
+                .Calling(c => c.Search(With.Default<SearchCarAdsQuery>()))
                 
                 .ShouldHave()
                 .ActionAttributes(attr => attr
@@ -28,7 +28,7 @@
                 .Configuration()
                 .ShouldMap("/CarAds")
 
-                .To<CarAdsController>(c => c.Get(With.Empty<SearchCarAdsQuery>()))
+                .To<CarAdsController>(c => c.Search(With.Empty<SearchCarAdsQuery>()))
                 .Which(instance => instance
                     .WithData(A.CollectionOfDummy<CarAd>(totalCarAds)))
 
@@ -43,7 +43,7 @@
                 .Configuration()
                 .ShouldMap("/CarAds")
 
-                .To<CarAdsController>(c => c.Get(With.Empty<SearchCarAdsQuery>()))
+                .To<CarAdsController>(c => c.Search(With.Empty<SearchCarAdsQuery>()))
                 .Which(instance => instance
                     .WithData(CarAdFakes.Data.GetCarAds()))
 
@@ -59,7 +59,7 @@
                 .Configuration()
                 .ShouldMap($"/CarAds?{nameof(manufacturer)}={manufacturer}")
 
-                .To<CarAdsController>(c => c.Get(new SearchCarAdsQuery { Manufacturer = manufacturer }))
+                .To<CarAdsController>(c => c.Search(new SearchCarAdsQuery { Manufacturer = manufacturer }))
                 .Which(instance => instance
                     .WithData(CarAdFakes.Data.GetCarAds()))
 

@@ -46,6 +46,23 @@
                 .AllAvailable()
                 .CountAsync(cancellationToken);
 
+        public async Task<Category> GetCategory(
+            int categoryId,
+            CancellationToken cancellationToken = default)
+            => await this
+                .Data
+                .Categories
+                .FirstOrDefaultAsync(c => c.Id == categoryId, cancellationToken);
+
+        public async Task<Manufacturer> GetManufacturer(
+            string manufacturer,
+            CancellationToken cancellationToken = default)
+            => await this
+                .Data
+                .Manufacturers
+                .FirstOrDefaultAsync(m => m.Name == manufacturer, cancellationToken);
+
+
         private IQueryable<CarAd> AllAvailable()
             => this
                 .All()
