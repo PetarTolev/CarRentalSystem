@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Domain.Common;
     using CarRentalSystem.Domain.Exceptions;
+    using System.Text.RegularExpressions;
     using static ModelConstants.PhoneNumber;
 
     public class PhoneNumber : ValueObject
@@ -29,11 +30,10 @@
                 MaxPhoneNumberLength,
                 nameof(PhoneNumber));
 
-            if (number.StartsWith(PhoneNumberFirstSymbol) == false)
+            if (!Regex.IsMatch(number, PhoneNumberRegularExpression))
             {
-                throw new InvalidPhoneNumberException($"Phone number must start with a '{PhoneNumberFirstSymbol}'.");
+                throw new InvalidPhoneNumberException("Phone number must start with a '+' and contain only digits afterwards.");
             }
         }
-
     }
 }

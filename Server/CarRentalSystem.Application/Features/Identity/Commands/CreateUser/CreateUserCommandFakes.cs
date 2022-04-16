@@ -13,7 +13,7 @@
                         f.Internet.Email(),
                         f.Lorem.Letter(10),
                         f.Name.FullName(),
-                        f.Phone.PhoneNumber("+#######")))
+                        f.Phone.PhoneNumber("+123123123123")))
                     .Generate();
         }
     }

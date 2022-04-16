@@ -12,7 +12,7 @@
 
             var dealer = factory
                 .WithName("Valid Name")
-                .WithPhoneNumber("+123123123")
+                .WithPhoneNumber("+123123123123")
                 .Build();
 
             dealer.Should().NotBeNull();

@@ -10,7 +10,7 @@
         [Fact]
         public void NumberWithoutPlusSignShouldThrowException()
         {
-            Action phoneNumber = () => new PhoneNumber("123123123");
+            Action phoneNumber = () => new PhoneNumber("123123123123");
 
             phoneNumber.Should().Throw<InvalidPhoneNumberException>();
         }

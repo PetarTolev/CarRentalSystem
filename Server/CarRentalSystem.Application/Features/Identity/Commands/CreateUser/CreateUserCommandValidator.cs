@@ -3,6 +3,7 @@
     using CarRentalSystem.Application.Features.Identity.Commands.RegisterUser;
     using FluentValidation;
     using static CarRentalSystem.Domain.Models.ModelConstants.Common;
+    using static CarRentalSystem.Domain.Models.ModelConstants.PhoneNumber;
 
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
@@ -26,6 +27,12 @@
                 .MaximumLength(MaxNameLength)
                 .NotEmpty();
 
+            this
+                .RuleFor(u => u.PhoneNumber)
+                .MinimumLength(MinPhoneNumberLength)
+                .MaximumLength(MaxPhoneNumberLength)
+                .Matches(PhoneNumberRegularExpression)
+                .NotEmpty();
         }
     }
 }

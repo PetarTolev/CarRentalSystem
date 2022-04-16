@@ -28,7 +28,7 @@
         {
             public const int MinPhoneNumberLength = 5;
             public const int MaxPhoneNumberLength = 20;
-            public const string PhoneNumberFirstSymbol = "+";
+            public const string PhoneNumberRegularExpression = @"\+[0-9]{12}";
         }
 
         public class CarAd

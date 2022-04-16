@@ -12,7 +12,7 @@
         [Fact]
         public void AddCarAdShouldSaveCarAd()
         {
-            var dealer = new Dealer("+123123123", "Valid name");
+            var dealer = new Dealer("+123123123123", "Valid name");
             var carAd = A.Dummy<CarAd>();
 
             dealer.AddCarAd(carAd);
@@ -23,7 +23,7 @@
         [Fact]
         public void InvalidNameLengthShouldThrowException()
         {
-            Action dealer = () => new Dealer("+123123123", "");
+            Action dealer = () => new Dealer("+123123123123", "");
 
             dealer.Should().Throw<InvalidDealerException>();
         }

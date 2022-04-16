@@ -19,7 +19,7 @@
             decimal pricePerDay,
             bool climateControl,
             int numberOfSeats,
-            int transmittionType)
+            int transmissionType)
         {
             Manufacturer = manufacturer;
             Model = model;
@@ -28,7 +28,7 @@
             PricePerDay = pricePerDay;
             ClimateControl = climateControl;
             NumberOfSeats = numberOfSeats;
-            TransmittionType = transmittionType;
+            TransmissionType = transmissionType;
         }
 
         public string Manufacturer { get; }
@@ -45,7 +45,7 @@
 
         public int NumberOfSeats { get; }
 
-        public int TransmittionType { get; }
+        public int TransmissionType { get; }
 
         public class CreateCarAdCommandHandler : IRequestHandler<CreateCarAdCommand, CreateCarAdOutputModel>
         {
@@ -92,7 +92,7 @@
                     .WithOptions(
                         request.ClimateControl, 
                         request.NumberOfSeats,
-                        Enumeration.FromValue<TransmissionType>(request.TransmittionType))
+                        Enumeration.FromValue<TransmissionType>(request.TransmissionType))
                     .Build();
 
                 dealer.AddCarAd(carAd);
