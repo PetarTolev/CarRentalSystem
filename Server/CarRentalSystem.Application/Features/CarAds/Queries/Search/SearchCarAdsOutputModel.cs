@@ -12,8 +12,8 @@
             this.Total = total;
         }
 
-        public IEnumerable<CarAdListingModel> CarAds { get; set; }
+        public IEnumerable<CarAdListingModel> CarAds { get; }
 
-        public int Total { get; set; }
+        public int Total { get; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using CarRentalSystem.Application.Features.CarAds;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Search;
     using CarRentalSystem.Domain.Models.CarAds;
     using CarRentalSystem.Domain.Specifications;
@@ -17,20 +18,16 @@
 
         public CarAdRepository(CarRentalDbContext db, IMapper mapper)
             : base(db)
-        {
-            this.mapper = mapper;
-        }
+            => this.mapper = mapper;
 
         public async Task<IEnumerable<CarAdListingModel>> GetCarAdListings(
             Specification<CarAd> specification,
             CancellationToken cancellationToken = default)
-        {
-            return await this.mapper
+            => await this.mapper
                 .ProjectTo<CarAdListingModel>(this
                     .AllAvailable()
                     .Where(specification))
                 .ToListAsync(cancellationToken);
-        }
 
         public async Task<int> Total(CancellationToken cancellationToken = default)
             => await this
@@ -53,6 +50,26 @@
                 .Manufacturers
                 .FirstOrDefaultAsync(m => m.Name == manufacturer, cancellationToken);
 
+        public async Task<IEnumerable<GetCarAdCategoryOutputModel>> GetCarAdCategories(
+            CancellationToken cancellationToken = default)
+        {
+            var categories = await this.mapper
+                .ProjectTo<GetCarAdCategoryOutputModel>(this.Data.Categories)
+                .ToDictionaryAsync(c => c.Id, cancellationToken);
+
+            var carAdsPerCategory = await this.AllAvailable()
+                .GroupBy(c => c.Category.Id)
+                .Select(gr => new
+                {
+                    CategoryId = gr.Key,
+                    TotalCarAds = gr.Count()
+                })
+                .ToListAsync(cancellationToken);
+
+            carAdsPerCategory.ForEach(c => categories[c.CategoryId].TotalCarAds = c.TotalCarAds);
+
+            return categories.Values;
+        }
 
         private IQueryable<CarAd> AllAvailable()
             => this

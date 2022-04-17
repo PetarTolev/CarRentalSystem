@@ -13,17 +13,17 @@
     {
 
         [Fact]
-        public void GetShouldHaveCorrectAttributes()
+        public void SearchShouldHaveCorrectAttributes()
             => MyController<CarAdsController>
                 .Calling(c => c.Search(With.Default<SearchCarAdsQuery>()))
-                
+
                 .ShouldHave()
                 .ActionAttributes(attr => attr
                     .RestrictingForHttpMethod(HttpMethod.Get));
 
         [Theory]
         [InlineData(2)]
-        public void GetShouldReturnAllCarAdsWithoutAQuery(int totalCarAds)
+        public void SearchShouldReturnAllCarAdsWithoutAQuery(int totalCarAds)
             => MyPipeline
                 .Configuration()
                 .ShouldMap("/CarAds")
@@ -38,7 +38,7 @@
                         .CarAds.Count().Should().Be(totalCarAds)));
 
         [Fact]
-        public void GetShouldReturnAvailableCarAdsWithoutAQuery()
+        public void SearchShouldReturnAvailableCarAdsWithoutAQuery()
             => MyPipeline
                 .Configuration()
                 .ShouldMap("/CarAds")
@@ -54,7 +54,7 @@
 
         [Theory]
         [InlineData("Manufacturer10")]
-        public void GetShouldReturnFilteredCarAdsWithAQuery(string manufacturer)
+        public void SearchShouldReturnFilteredCarAdsWithAQuery(string manufacturer)
             => MyPipeline
                 .Configuration()
                 .ShouldMap($"/CarAds?{nameof(manufacturer)}={manufacturer}")

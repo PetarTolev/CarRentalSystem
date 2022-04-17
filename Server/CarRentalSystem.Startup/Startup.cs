@@ -35,6 +35,10 @@ namespace CarRentalSystem.Startup
             app
                 .UseValidationExceptionHandler()
                 .UseHttpsRedirection()
+                .UseCors(o => o
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod())
                 .UseRouting()
                 .UseAuthentication()
                 .UseAuthorization()
