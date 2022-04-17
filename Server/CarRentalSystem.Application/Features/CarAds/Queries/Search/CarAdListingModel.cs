@@ -1,33 +1,30 @@
 ﻿namespace CarRentalSystem.Application.Features.CarAds.Queries.Search
 {
-    public class CarAdListingModel
+    using AutoMapper;
+    using CarRentalSystem.Application.Mapping;
+    using CarRentalSystem.Domain.Models.CarAds;
+
+    public class CarAdListingModel : IMapFrom<CarAd>
     {
-        public CarAdListingModel(
-            int id,
-            string manufacturer,
-            string model,
-            string imageUrl,
-            string category,
-            decimal pricePerDay)
+        public int Id { get; private set; }
+
+        public string Manufacturer { get; private set; } = default!;
+
+        public string Model { get; private set; } = default!;
+
+        public string ImageUrl { get; private set; } = default!;
+
+        public string Category { get; private set; } = default!;
+
+        public decimal PrivePerDay { get; private set; }
+
+        public void Mapping(Profile mapper)
         {
-            this.Id = id;
-            this.Manufacturer = manufacturer;
-            this.Model = model;
-            this.ImageUrl = imageUrl;
-            this.Category = category;
-            this.PrivePerDay = pricePerDay;
+            mapper.CreateMap<CarAd, CarAdListingModel>()
+                .ForMember(ad => ad.Manufacturer, cfg => cfg
+                    .MapFrom(ad => ad.Manufacturer.Name))
+                .ForMember(ad => ad.Category, cfg => cfg
+                    .MapFrom(ad => ad.Category.Name));
         }
-
-        public int Id { get; set; }
-
-        public string Manufacturer { get; set; }
-
-        public string Model { get; set; }
-
-        public string ImageUrl { get; set; }
-
-        public string Category { get; set; }
-
-        public decimal PrivePerDay { get; set; }
     }
 }

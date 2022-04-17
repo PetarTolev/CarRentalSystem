@@ -6,6 +6,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Persistence;
     using System;
+    using System.Reflection;
     using Xunit;
 
     public class InfrastructureConfigurationSpecs
@@ -18,6 +19,7 @@
                     .UseInMemoryDatabase(Guid.NewGuid().ToString()));
 
             var services = serviceCollection
+                .AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddRepositories()
                 .BuildServiceProvider();
 
