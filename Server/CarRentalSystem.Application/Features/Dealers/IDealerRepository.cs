@@ -8,10 +8,10 @@
 
     public interface IDealerRepository : IRepository<Dealer>
     {
-        Task<Dealer> FindByUser(string userId, CancellationToken cancellationToken);
+        Task<Dealer> FindByUser(string userId, CancellationToken cancellationToken = default);
         
-        Task<int> GetDealerId(string userId, CancellationToken cancellationToken);
+        Task<int> GetDealerId(string userId, CancellationToken cancellationToken = default);
 
-        Task<DealerDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken);
+        Task<DealerDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken = default);
     }
 }

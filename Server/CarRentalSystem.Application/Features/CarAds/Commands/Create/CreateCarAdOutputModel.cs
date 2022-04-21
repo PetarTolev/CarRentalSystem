@@ -1,4 +1,4 @@
-﻿namespace CarRentalSystem.Application.Features.CarAds.Commands.CreateCarAd
+﻿namespace CarRentalSystem.Application.Features.CarAds.Commands.Create
 {
     public class CreateCarAdOutputModel
     {

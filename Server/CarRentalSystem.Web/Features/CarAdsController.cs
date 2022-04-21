@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Web.Features
 {
-    using CarRentalSystem.Application.Features.CarAds.Commands.CreateCarAd;
+    using CarRentalSystem.Application.Features.CarAds.Commands.Create;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Search;
     using Microsoft.AspNetCore.Authorization;

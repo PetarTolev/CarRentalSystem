@@ -1,6 +1,7 @@
-﻿namespace CarRentalSystem.Application.Features.CarAds.Commands.CreateCarAd
+﻿namespace CarRentalSystem.Application.Features.CarAds.Commands.Create
 {
     using CarRentalSystem.Application.Contracts;
+    using CarRentalSystem.Application.Features.CarAds;
     using CarRentalSystem.Application.Features.Dealers;
     using CarRentalSystem.Domain.Common;
     using CarRentalSystem.Domain.Factories.CarAds;
@@ -90,7 +91,7 @@
                     .WithImageUrl(request.ImageUrl)
                     .WithPricePerDay(request.PricePerDay)
                     .WithOptions(
-                        request.ClimateControl, 
+                        request.ClimateControl,
                         request.NumberOfSeats,
                         Enumeration.FromValue<TransmissionType>(request.TransmissionType))
                     .Build();
