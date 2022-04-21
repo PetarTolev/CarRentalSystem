@@ -1,5 +1,7 @@
 ﻿namespace CarRentalSystem.Application.Features.Identity.Commands.LoginUser
 {
+    using CarRentalSystem.Application.Features.Dealers;
+    using CarRentalSystem.Application.Features.Identity.Commands;
     using MediatR;
     using System.Threading;
     using System.Threading.Tasks;
@@ -14,13 +16,31 @@
         public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<LoginOutputModel>>
         {
             private readonly IIdentity identity;
+            private readonly IDealerRepository dealerRepository;
 
-            public LoginUserCommandHandler(IIdentity identity) => this.identity = identity;
+            public LoginUserCommandHandler(IIdentity identity, IDealerRepository dealerRepository)
+            {
+                this.identity = identity;
+                this.dealerRepository = dealerRepository;
+            }
 
             public async Task<Result<LoginOutputModel>> Handle(
                 LoginUserCommand request,
                 CancellationToken cancellationToken)
-                => await this.identity.Login(request);
+            {
+                var result = await this.identity.Login(request);
+            
+                if (!result.Succeeded)
+                {
+                    return result.Errors;
+                }
+
+                var user = result.Data;
+                
+                var dealerId = await this.dealerRepository.GetDealerId(user.UserId, cancellationToken);
+
+                return new LoginOutputModel(user.Token, dealerId);
+            }
         }
     }
 }

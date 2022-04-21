@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Application.Features.Identity
 {
     using CarRentalSystem.Application;
+    using CarRentalSystem.Application.Features.Identity.Commands;
     using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
     using System.Threading.Tasks;
 
@@ -8,6 +9,6 @@
     {
         Task<Result<IUser>> Register(UserInputModel userInput);
 
-        Task<Result<LoginOutputModel>> Login(UserInputModel userInpur);
+        Task<Result<LoginSuccessModel>> Login(UserInputModel userInpur);
     }
 }

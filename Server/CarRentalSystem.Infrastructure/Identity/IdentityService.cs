@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Application;
     using CarRentalSystem.Application.Features.Identity;
+    using CarRentalSystem.Application.Features.Identity.Commands;
     using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
     using Microsoft.AspNetCore.Identity;
     using System.Linq;
@@ -9,7 +10,7 @@
 
     public class IdentityService : IIdentity
     {
-        private const string InvalidLoginErrorMessage = "Invalid credentials.";
+        private const string InvalidErrorMessage = "Invalid credentials.";
 
         private readonly UserManager<User> userManager;
         private readonly IJwtTokenGenerator jwtTokenGenerator;
@@ -35,23 +36,23 @@
                 : Result<IUser>.Failure(errors);
         }
 
-        public async Task<Result<LoginOutputModel>> Login(UserInputModel userInput)
+        public async Task<Result<LoginSuccessModel>> Login(UserInputModel userInput)
         {
             var user = await this.userManager.FindByEmailAsync(userInput.Email);
             if (user == null)
             {
-                return InvalidLoginErrorMessage;
+                return InvalidErrorMessage;
             }
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, userInput.Password);
             if (!passwordValid)
             {
-                return InvalidLoginErrorMessage;
+                return InvalidErrorMessage;
             }
 
             var token = this.jwtTokenGenerator.GenerateToken(user);
 
-            return new LoginOutputModel(token);
+            return new LoginSuccessModel(user.Id, token);
         }
     }
 }

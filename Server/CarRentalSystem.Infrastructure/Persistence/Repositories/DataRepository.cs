@@ -19,7 +19,7 @@
             TEntity entity,
             CancellationToken cancellationToken = default)
         {
-            this.Data.Add(entity);
+            this.Data.Update(entity);
 
             await this.Data.SaveChangesAsync(cancellationToken);
         }

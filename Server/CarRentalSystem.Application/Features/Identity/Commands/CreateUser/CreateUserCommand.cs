@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 {
     using CarRentalSystem.Application.Features.Dealers;
+    using CarRentalSystem.Application.Features.Identity.Commands;
     using CarRentalSystem.Domain.Factories.Dealers;
     using MediatR;
     using System.Threading;
