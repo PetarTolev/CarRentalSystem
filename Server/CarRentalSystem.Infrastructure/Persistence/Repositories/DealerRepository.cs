@@ -1,6 +1,8 @@
 ﻿namespace CarRentalSystem.Infrastructure.Persistence.Repositories
 {
+    using AutoMapper;
     using CarRentalSystem.Application.Features.Dealers;
+    using CarRentalSystem.Application.Features.Dealers.Queries.Details;
     using CarRentalSystem.Domain.Exceptions;
     using CarRentalSystem.Domain.Models.Dealers;
     using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,11 @@
 
     internal class DealerRepository : DataRepository<Dealer>, IDealerRepository
     {
-        public DealerRepository(CarRentalDbContext db)
+        private readonly IMapper mapper;
+
+        public DealerRepository(CarRentalDbContext db, IMapper mapper)
             : base(db)
-        {
-        }
+            => this.mapper = mapper;
 
         public async Task<Dealer> FindByUser(string userId, CancellationToken cancellationToken)
         {
@@ -31,5 +34,13 @@
 
             return dealer;
         }
+
+        public async Task<DealerDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken)
+            => await this
+                .mapper
+                .ProjectTo<DealerDetailsOutputModel>(this
+                    .All()
+                    .Where(d => d.Id == id))
+                .FirstOrDefaultAsync(cancellationToken);
     }
 }
