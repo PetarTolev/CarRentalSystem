@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Application;
     using CarRentalSystem.Application.Features.Identity.Commands;
+    using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;
     using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
     using System.Threading.Tasks;
 
@@ -10,5 +11,7 @@
         Task<Result<IUser>> Register(UserInputModel userInput);
 
         Task<Result<LoginSuccessModel>> Login(UserInputModel userInpur);
+
+        Task<Result> ChangePassword(ChangePasswordInputModel changePasswordInputModel);
     }
 }

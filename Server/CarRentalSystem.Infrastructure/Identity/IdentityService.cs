@@ -3,6 +3,7 @@
     using CarRentalSystem.Application;
     using CarRentalSystem.Application.Features.Identity;
     using CarRentalSystem.Application.Features.Identity.Commands;
+    using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;
     using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
     using Microsoft.AspNetCore.Identity;
     using System.Linq;
@@ -53,6 +54,27 @@
             var token = this.jwtTokenGenerator.GenerateToken(user);
 
             return new LoginSuccessModel(user.Id, token);
+        }
+
+        public async Task<Result> ChangePassword(ChangePasswordInputModel changePasswordInput)
+        {
+            var user = await this.userManager.FindByIdAsync(changePasswordInput.UserId);
+
+            if (user == null)
+            {
+                return InvalidErrorMessage;
+            }
+
+            var identityResult = await this.userManager.ChangePasswordAsync(
+                user, 
+                changePasswordInput.CurrentPassword, 
+                changePasswordInput.NewPassword);
+
+            var errors = identityResult.Errors.Select(e => e.Description);
+
+            return identityResult.Succeeded
+                ? Result.Success
+                : Result.Failure(errors);
         }
     }
 }

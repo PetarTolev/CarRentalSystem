@@ -1,8 +1,10 @@
 ﻿namespace CarRentalSystem.Web.Features
 {
     using CarRentalSystem.Application.Features.Identity;
+    using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;
     using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
     using CarRentalSystem.Application.Features.Identity.Commands.RegisterUser;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
@@ -20,6 +22,12 @@
         [HttpPost]
         [Route(nameof(Login))]
         public async Task<ActionResult<LoginOutputModel>> Login(LoginUserCommand command)
+            => await this.Send(command);
+
+        [HttpPut]
+        [Authorize]
+        [Route(nameof(ChangePassword))]
+        public async Task<ActionResult> ChangePassword(ChangePasswordCommand command)
             => await this.Send(command);
     }
 }
