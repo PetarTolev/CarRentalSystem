@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Infrastructure.Identity
 {
-    using CarRentalSystem.Application;
+    using CarRentalSystem.Application.Common;
     using CarRentalSystem.Application.Features.Identity;
     using CarRentalSystem.Application.Features.Identity.Commands;
     using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;

@@ -1,42 +1,35 @@
 ﻿namespace CarRentalSystem.Application.Features.CarAds.Queries.Search
 {
-    using CarRentalSystem.Domain.Specification.CarAds;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Common;
     using MediatR;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class SearchCarAdsQuery : IRequest<SearchCarAdsOutputModel>
+    public class SearchCarAdsQuery : CarAdsQuery, IRequest<SearchCarAdsOutputModel>
     {
-        public string? Manufacturer { get; set; }
-
-        public int? Category { get; set; }
-
-        public decimal? MinPricePerDay { get; set; }
-
-        public decimal? MaxPricePerDay { get; set; }
-
-        public class SearchCarAdsQueryHandler : IRequestHandler<SearchCarAdsQuery, SearchCarAdsOutputModel>
+        public class SearchCarAdsQueryHandler : CarAdsQueryHandler, IRequestHandler<
+            SearchCarAdsQuery,
+            SearchCarAdsOutputModel>
         {
-            private readonly ICarAdRepository carAdRepository;
-
-            public SearchCarAdsQueryHandler(ICarAdRepository carAdRepository) 
-                => this.carAdRepository = carAdRepository;
+            public SearchCarAdsQueryHandler(ICarAdRepository carAdRepository)
+                : base(carAdRepository)
+            {
+            }
 
             public async Task<SearchCarAdsOutputModel> Handle(
-                SearchCarAdsQuery request, 
+                SearchCarAdsQuery request,
                 CancellationToken cancellationToken)
             {
-                var carAdSpecification = new CarAdByManufacturerSpecification(request.Manufacturer)
-                    .And(new CarAdByCategorySpecification(request.Category))
-                    .And(new CarAdByPricePerDaySpecification(request.MinPricePerDay, request.MaxPricePerDay));
+                
+                var carAdListings = await base.GetCarAdListings<CarAdOutputModel>(
+                    request,
+                    cancellationToken: cancellationToken);
 
-                var carAdListings = await this.carAdRepository.GetCarAdListings(
-                    carAdSpecification,
-                    cancellationToken);
+                var totalPages = await base.GetTotalPages(
+                    request,
+                    cancellationToken: cancellationToken);
 
-                var totalCarAds = await this.carAdRepository.Total(cancellationToken);
-
-                return new SearchCarAdsOutputModel(carAdListings, totalCarAds);
+                return new SearchCarAdsOutputModel(carAdListings, request.Page, totalPages);
             }
         }
     }

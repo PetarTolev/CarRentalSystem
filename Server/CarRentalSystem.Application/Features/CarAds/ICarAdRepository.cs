@@ -2,8 +2,9 @@
 {
     using CarRentalSystem.Application.Contracts;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
-    using CarRentalSystem.Application.Features.CarAds.Queries.Search;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Common;
     using CarRentalSystem.Domain.Models.CarAds;
+    using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
     using System.Collections.Generic;
     using System.Threading;
@@ -11,11 +12,18 @@
 
     public interface ICarAdRepository : IRepository<CarAd>
     {
-        Task<IEnumerable<CarAdListingModel>> GetCarAdListings(
-            Specification<CarAd> specification,
+        Task<IEnumerable<TOutputModel>> GetCarAdListings<TOutputModel>(
+            Specification<CarAd> carAdSpecification,
+            Specification<Dealer> dealerSpecification,
+            CarAdsSortOrder carAdsSortOrder,
+            int skip = 0,
+            int take = int.MaxValue,
             CancellationToken cancellationToken = default);
 
-        Task<int> Total(CancellationToken cancellationToken = default);
+        Task<int> Total(
+            Specification<CarAd> carAdSpecification,
+            Specification<Dealer> dealerSpecification,
+            CancellationToken cancellationToken = default);
 
         Task<Category> GetCategory(
             int categoryId,

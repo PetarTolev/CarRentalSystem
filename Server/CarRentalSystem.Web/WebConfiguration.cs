@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Web
 {
-    using CarRentalSystem.Application;
+    using CarRentalSystem.Application.Common;
     using CarRentalSystem.Application.Contracts;
     using CarRentalSystem.Web.Services;
     using FluentValidation.AspNetCore;

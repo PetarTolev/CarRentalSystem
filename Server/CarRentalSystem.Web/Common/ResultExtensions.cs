@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Web.Common
 {
-    using CarRentalSystem.Application;
+    using CarRentalSystem.Application.Common;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 

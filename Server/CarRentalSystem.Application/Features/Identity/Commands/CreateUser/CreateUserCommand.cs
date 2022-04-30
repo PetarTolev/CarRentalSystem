@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 {
+    using CarRentalSystem.Application.Common;
     using CarRentalSystem.Application.Features.Dealers;
     using CarRentalSystem.Application.Features.Identity.Commands;
     using CarRentalSystem.Domain.Factories.Dealers;

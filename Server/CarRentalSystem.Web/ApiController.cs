@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Web
 {
-    using CarRentalSystem.Application;
+    using CarRentalSystem.Application.Common;
     using CarRentalSystem.Web.Common;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
