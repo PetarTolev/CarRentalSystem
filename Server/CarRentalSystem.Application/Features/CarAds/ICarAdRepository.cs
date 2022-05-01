@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Application.Features.CarAds
 {
+    using CarRentalSystem.Application.Common;
     using CarRentalSystem.Application.Contracts;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
@@ -23,6 +24,10 @@
         Task<int> Total(
             Specification<CarAd> carAdSpecification,
             Specification<Dealer> dealerSpecification,
+            CancellationToken cancellationToken = default);
+
+        Task<Result> ChangeAvailability(
+            int id,
             CancellationToken cancellationToken = default);
 
         Task<Category> GetCategory(

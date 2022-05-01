@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Infrastructure.Persistence.Repositories
 {
     using AutoMapper;
+    using CarRentalSystem.Application.Common;
     using CarRentalSystem.Application.Features.CarAds;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
@@ -81,6 +82,21 @@
             => await this
                 .GetCarAdsQuery(carAdSpecification, dealerSpecification)
                 .CountAsync(cancellationToken);
+
+        public async Task<Result> ChangeAvailability(
+            int id,
+            CancellationToken cancellationToken = default)
+        {
+            var carAd = await this
+                .All()
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
+            carAd.ChangeAvailability();
+
+            await this.Save(carAd, cancellationToken);
+
+            return Result.Success;
+        }
 
         private IQueryable<CarAd> AllAvailable()
             => this
