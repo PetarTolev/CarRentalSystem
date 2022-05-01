@@ -34,7 +34,7 @@
                     this.currentUser.UserId,
                     cancellationToken);
 
-                var carAds = await base.GetCarAdListings<CarAdOutputModel>(
+                var carAds = await base.GetCarAdListings<MineCarAdOutputModel>(
                     request,
                     onlyAvailable: false,
                     dealerId,

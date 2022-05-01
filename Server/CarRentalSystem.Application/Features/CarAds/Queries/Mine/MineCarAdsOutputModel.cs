@@ -3,10 +3,10 @@
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
     using System.Collections.Generic;
 
-    public class MineCarAdsOutputModel : CarAdsOutputModel<CarAdOutputModel>
+    public class MineCarAdsOutputModel : CarAdsOutputModel<MineCarAdOutputModel>
     {
         internal MineCarAdsOutputModel(
-            IEnumerable<CarAdOutputModel> carAds,
+            IEnumerable<MineCarAdOutputModel> carAds,
             int page,
             int totalPages)
             : base(carAds, page, totalPages)
