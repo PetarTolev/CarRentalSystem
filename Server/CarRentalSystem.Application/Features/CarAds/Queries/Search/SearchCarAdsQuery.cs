@@ -20,7 +20,6 @@
                 SearchCarAdsQuery request,
                 CancellationToken cancellationToken)
             {
-                
                 var carAdListings = await base.GetCarAdListings<CarAdOutputModel>(
                     request,
                     cancellationToken: cancellationToken);
