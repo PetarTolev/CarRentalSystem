@@ -13,6 +13,10 @@
 
     public interface ICarAdRepository : IRepository<CarAd>
     {
+        Task<CarAd> FindById(
+            int id,
+            CancellationToken cancellationToken = default);
+
         Task<IEnumerable<TOutputModel>> GetCarAdListings<TOutputModel>(
             Specification<CarAd> carAdSpecification,
             Specification<Dealer> dealerSpecification,
@@ -39,6 +43,10 @@
             CancellationToken cancellationToken = default);
 
         Task<IEnumerable<GetCarAdCategoryOutputModel>> GetCarAdCategories(
+            CancellationToken cancellationToken = default);
+
+        Task<bool> Delete(
+            int id,
             CancellationToken cancellationToken = default);
     }
 }

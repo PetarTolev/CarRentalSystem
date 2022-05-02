@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Application.Features.CarAds.Commands.ChangeAvailability;
     using CarRentalSystem.Application.Features.CarAds.Commands.Create;
+    using CarRentalSystem.Application.Features.CarAds.Commands.Delete;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
     using CarRentalSystem.Application.Features.CarAds.Queries.Search;
@@ -41,6 +42,13 @@
         [Route(Id + PathSeparator + nameof(ChangeAvailability))]
         public async Task<ActionResult> ChangeAvailability(
             [FromRoute] ChangeAvailabilityCommand command)
+            => await this.Send(command);
+
+        [HttpDelete]
+        [Authorize]
+        [Route(Id)]
+        public async Task<ActionResult> Delete(
+            [FromRoute] DeleteCarAdCommand command)
             => await this.Send(command);
     }
 }

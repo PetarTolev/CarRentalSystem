@@ -23,6 +23,13 @@
             : base(db)
             => this.mapper = mapper;
 
+        public async Task<CarAd> FindById(
+            int id,
+            CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
         public async Task<Category> GetCategory(
             int categoryId,
             CancellationToken cancellationToken = default)
@@ -87,15 +94,31 @@
             int id,
             CancellationToken cancellationToken = default)
         {
-            var carAd = await this
-                .All()
-                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+            var carAd = await this.FindById(id, cancellationToken);
 
             carAd.ChangeAvailability();
 
             await this.Save(carAd, cancellationToken);
 
             return Result.Success;
+        }
+
+        public async Task<bool> Delete(
+            int id,
+            CancellationToken cancellationToken = default)
+        {
+            var carAd = await this.FindById(id, cancellationToken);
+
+            if (carAd == null)
+            {
+                return false;
+            }
+
+            this.Data.CarAds.Remove(carAd);
+
+            await this.Data.SaveChangesAsync(cancellationToken);
+
+            return true;
         }
 
         private IQueryable<CarAd> AllAvailable()
