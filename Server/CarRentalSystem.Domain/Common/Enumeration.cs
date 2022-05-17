@@ -47,6 +47,9 @@
         public static T FromName<T>(string name) where T : Enumeration
             => Parse<T, string>(name, "name", item => item.Name == name);
 
+        public static string NameFromValue<T>(int value) where T : Enumeration
+            => FromValue<T>(value).Name;
+
         private static T Parse<T, TValue>(
             TValue value,
             string description,

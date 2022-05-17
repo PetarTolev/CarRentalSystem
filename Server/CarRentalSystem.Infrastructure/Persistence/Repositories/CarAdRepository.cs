@@ -5,6 +5,7 @@
     using CarRentalSystem.Application.Features.CarAds;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Details;
     using CarRentalSystem.Domain.Models.CarAds;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
@@ -89,6 +90,15 @@
             => await this
                 .GetCarAdsQuery(carAdSpecification, dealerSpecification)
                 .CountAsync(cancellationToken);
+
+        public async Task<CarAdDetailsOutputModel> GetDetails(
+            int id,
+            CancellationToken cancellationToken = default)
+            => await this.mapper
+                .ProjectTo<CarAdDetailsOutputModel>(this
+                    .AllAvailable()
+                    .Where(c => c.Id == id))
+                .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<Result> ChangeAvailability(
             int id,

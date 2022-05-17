@@ -4,6 +4,7 @@
     using CarRentalSystem.Application.Contracts;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Details;
     using CarRentalSystem.Domain.Models.CarAds;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
@@ -29,7 +30,11 @@
             Specification<CarAd> carAdSpecification,
             Specification<Dealer> dealerSpecification,
             CancellationToken cancellationToken = default);
-
+        
+        Task<CarAdDetailsOutputModel> GetDetails(
+            int id, 
+            CancellationToken cancellationToken = default);
+        
         Task<Result> ChangeAvailability(
             int id,
             CancellationToken cancellationToken = default);

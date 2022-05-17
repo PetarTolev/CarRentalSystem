@@ -4,6 +4,7 @@
     using CarRentalSystem.Application.Features.CarAds.Commands.Create;
     using CarRentalSystem.Application.Features.CarAds.Commands.Delete;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Details;
     using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
     using CarRentalSystem.Application.Features.CarAds.Queries.Search;
     using Microsoft.AspNetCore.Authorization;
@@ -43,6 +44,13 @@
         public async Task<ActionResult> ChangeAvailability(
             [FromRoute] ChangeAvailabilityCommand command)
             => await this.Send(command);
+
+        [HttpGet]
+        [Authorize]
+        [Route(Id)]
+        public async Task<ActionResult<CarAdDetailsOutputModel>> Details(
+            [FromQuery] CarAdDetailsQuery query)
+            => await this.Send(query);
 
         [HttpDelete]
         [Authorize]

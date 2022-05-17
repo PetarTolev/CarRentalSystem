@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using CarRentalSystem.Application.Features.Dealers;
+    using CarRentalSystem.Application.Features.Dealers.Queries.Common;
     using CarRentalSystem.Application.Features.Dealers.Queries.Details;
     using CarRentalSystem.Domain.Exceptions;
     using CarRentalSystem.Domain.Models.Dealers;
@@ -42,14 +43,23 @@
                 .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<bool> HasCarAd(
-            int dealerId, 
-            int carAdId, 
+            int dealerId,
+            int carAdId,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .Where(d => d.Id == dealerId)
                 .AnyAsync(d => d.CarAds
                     .Any(ad => ad.Id == carAdId), cancellationToken);
+
+        public async Task<DealerOutputModel> GetDetailsByCarAdId(
+            int carAdId,
+            CancellationToken cancellationToken = default)
+            => await this.mapper
+                .ProjectTo<DealerOutputModel>(this
+                    .All()
+                    .Where(d => d.CarAds.Any(c => c.Id == carAdId)))
+                .SingleOrDefaultAsync(cancellationToken);
 
         private async Task<T> FindByUser<T>(
             string userId,
